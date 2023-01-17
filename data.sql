@@ -36,8 +36,8 @@ INSERT INTO species (name) VALUES ('Pokemon');
 INSERT INTO species (name) VALUES ('Digimon');
 
 
-UPDATE animals SET species_id = 1 WHERE name LIKE '%mon';
-UPDATE animals SET species_id = 2 WHERE species_id IS NULL;
+UPDATE animals SET species_id = 1 WHERE name NOT LIKE '%mon';
+UPDATE animals SET species_id = 2 WHERE name LIKE '%mon';
 select * from animals;
 
 UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
