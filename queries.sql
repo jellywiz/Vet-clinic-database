@@ -87,3 +87,51 @@ AND animals.escape_attempts = 0;
 SELECT owners.full_name, COUNT(animals.owner_id) from animals
 JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name
 ORDER BY COUNT(animals.owner_id) DESC LIMIT 1;
+
+----------------------
+-- PR4
+SELECT name FROM animals WHERE id = (SELECT animals_id FROM visits
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'William Tatcher')
+ORDER BY date_of_vist DESC LIMIT 1);
+
+
+SELECT COUNT(DISTINCT animals_id) FROM visits
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'Stephanie Mendez');
+
+SELECT v.name, s.name FROM vets v
+LEFT JOIN specializations sp ON sp.vet_id = v.id
+LEFT JOIN species s ON sp.species_id = s.id;
+
+SELECT name FROM animals
+WHERE id IN (SELECT animals_id FROM visits
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'Stephanie Mendez')
+AND date_of_vist BETWEEN '2020-04-01' AND '2020-08-30');
+
+
+SELECT name, COUNT(animals_id) FROM animals
+JOIN visits ON visits.animals_id = animals.id
+GROUP BY name
+ORDER BY COUNT(animals_id) DESC
+LIMIT 1;
+
+SELECT name FROM animals
+WHERE id = (SELECT animals_id FROM visits
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'Maisy Smith')
+ORDER BY date_of_vist ASC LIMIT 1);
+
+SELECT a.name, v.name, date_of_vist FROM visits
+JOIN animals a ON a.id = visits.animals_id
+JOIN vets v ON v.id = visits.vet_id
+ORDER BY date_of_vist DESC LIMIT 1;
+
+SELECT COUNT(*) FROM visits
+WHERE vet_id NOT IN (SELECT vet_id FROM specializations
+WHERE species_id = (SELECT species_id FROM animals
+WHERE id = visits.animals_id));
+
+SELECT name FROM species
+WHERE id = (SELECT species_id FROM visits
+JOIN animals ON animals.id = visits.animals_id
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'Maisy Smith')
+GROUP BY species_id
+ORDER BY COUNT(species_id) DESC LIMIT 1);
