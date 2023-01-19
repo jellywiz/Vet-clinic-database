@@ -30,7 +30,6 @@ ALTER TABLE animals DROP COLUMN species;
 ALTER TABLE animals ADD COLUMN species_id INTEGER;
 ALTER TABLE animals ADD COLUMN owner_id INTEGER;
 
-
 -----------------------------------
 -- PR 4
 

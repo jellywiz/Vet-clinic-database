@@ -88,7 +88,7 @@ SELECT owners.full_name, COUNT(animals.owner_id) from animals
 JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name
 ORDER BY COUNT(animals.owner_id) DESC LIMIT 1;
 
-----------------------
+
 -- PR4
 SELECT name FROM animals WHERE id = (SELECT animals_id FROM visits
 WHERE vet_id = (SELECT id FROM vets WHERE name = 'William Tatcher')
